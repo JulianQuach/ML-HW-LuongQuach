@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en"">
+<head>
+    <meta charset="utf-8">
+    <title>MNIST Predictor</title>
+</head>
+<body>
+    <!-- <h1 align="center">Draw something in the canvas below</h1> -->
+    <canvas id="canvas" style="border: 2px solid black"></canvas>
+    <!-- style="width:280px;height:280px; -->
+    <div>
+        <form>
+            <a href="predict" id=predict><button>Predict</button></a>
+        </form>
+    </div>
+    <!-- <script src="/canvas.js"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+    $(function() {
+        $('a#predict').bind('click', function() {
+            const canvas = document.querySelector("#canvas");
+            var img = canvas.toDataURL('image/jpeg', 0.1);
+            img = img.replace("data:image/jpeg;base64,", "");
+            url = window.location.href;
+            console.log(url);
+            console.log(img);
+            console.log(typeof img)
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                url: url,
+                data: JSON.stringify({data: img})
+            })
+            return false;
+        });
+    });
+    </script>
+
+    <script>
+    window.addEventListener("load", () =>{
+        const canvas = document.querySelector("#canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.height = 280;
+        canvas.width = 280;
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        let painting = false;
+
+        function startPosition(){
+            painting = true;
+        }
+
+        function finishedPosition(){
+            painting = false;
+            ctx.beginPath();
+        }
+
+        function draw(e){
+            if (!painting) return;
+            ctx.lineWidth = 10;
+            ctx.lineCap = "round";
+
+            ctx.lineTo(e.clientX, e.clientY);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX, e.clientY);
+        }
+
+        canvas.addEventListener("mousedown", startPosition);
+        canvas.addEventListener("mouseup", finishedPosition);
+        canvas.addEventListener("mousemove", draw);
+    });
+    </script>
+</body>
+</html>
