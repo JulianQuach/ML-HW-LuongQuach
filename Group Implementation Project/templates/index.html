@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en"">
 <head>
     <meta charset="utf-8">
     <title>MNIST Predictor</title>
 </head>
 <body>
-    <!-- <h1 align="center">Draw something in the canvas below</h1> -->
     <canvas id="canvas" style="border: 2px solid black"></canvas>
-    <!-- style="width:280px;height:280px; -->
     <div>
         <form>
             <a href="predict" id=predict><button>Predict</button></a>
         </form>
+        <h3>Predict Number: {{o}}</h3>
+        <h3>Confidence: {{p}}</h3>
     </div>
-    <!-- <script src="/canvas.js"></script> -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type=text/javascript>
     $(function() {
@@ -61,7 +59,7 @@
 
         function draw(e){
             if (!painting) return;
-            ctx.lineWidth = 10;
+            ctx.lineWidth = 40;
             ctx.lineCap = "round";
 
             ctx.lineTo(e.clientX, e.clientY);
