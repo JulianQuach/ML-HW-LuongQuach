@@ -1,5 +1,5 @@
 # Group Implementation Project
-### Status: 80% complete
+### Status: Incomplete
 ### Incomplete tasks:
 #### Send the data back to HTML to render:
 I couldn't send the data back to be rendered on the page.
